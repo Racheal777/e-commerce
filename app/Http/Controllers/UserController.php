@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ShoesResource;
-use App\Models\Shoes;
-use App\Traits\DetailsEntryTrait;
-use App\Traits\ImageUploadTrait;
-use App\Traits\ReviewTrait;
+use App\Http\Resources\UsersCollection;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-//use Reviewable;
 
-class ShoesController extends Controller
+class UserController extends Controller
 {
-    use ReviewTrait;
-    use ImageUploadTrait;
-    use DetailsEntryTrait;
     /**
      * Display a listing of the resource.
      *
@@ -24,6 +16,8 @@ class ShoesController extends Controller
     public function index()
     {
         //
+        $users = User::all();
+        return new UsersCollection($users);
     }
 
     /**
@@ -32,26 +26,11 @@ class ShoesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Shoes $shoes)
+    public function store(Request $request)
     {
-        //adding a shoe using the details entry trait
-        $shoes = new Shoes();
-        $shoes = $this->detailsEntry($request, $shoes);
-
-        $shoes->save();
-
-        return new ShoesResource( $shoes);
+        //
     }
 
-
-    //add review
-   
-    public function addShoeReview(Request $request, Shoes $shoes)
-    {
-        $review = $this->addReview($request, $shoes);
-       
-        return $review;
-    }
     /**
      * Display the specified resource.
      *

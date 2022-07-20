@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewCollection;
 use App\Models\Shoes;
 use App\Models\Dresses;
 use App\Models\Reviews;
@@ -18,7 +19,11 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = Reviews::all();
+
+        return new ReviewCollection($reviews);
+        // $reviews = Reviews::find(1);
+        // return $reviews->reviewable;
     }
 
     /**

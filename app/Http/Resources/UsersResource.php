@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Reviews;
+use App\Http\Resources\ReviewCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BagssResource extends JsonResource
+class UsersResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,14 +16,14 @@ class BagssResource extends JsonResource
      */
     public function toArray($request)
     {
+        $review = Reviews::all();
+        $reviews = new ReviewssResource($review);
         return 
         [
-            'id'=> $this->id,
+            'id' =>$this->id,
             'name' => $this->name,
-            'price' => $this->price,
-            'size' => $this->size,
-            'image' => $this->image,
-            'reviews' => $this->reviews
+           // 'reviews' => $review
+
         ];
     }
 }

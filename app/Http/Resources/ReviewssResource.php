@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Reviews;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,12 +17,16 @@ class ReviewssResource extends JsonResource
     public function toArray($request)
     {
         $creator = User::find($this->user_id);
+        $user = new UsersResource($creator);
+
+        $reviewed = new ReviewableResource($this->reviewable);
         return
          [
+            'user' => $user,
             'id' => $this->id,
             'message' => $this->message,
-            'reviewable_type' => $this->reviewable_type,
-            'user' => $creator
+            'ratings' => $this->ratings,
+            'reviewed_item' => $reviewed
 
         ];
     }

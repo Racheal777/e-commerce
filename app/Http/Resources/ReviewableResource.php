@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BagssResource extends JsonResource
+class ReviewableResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,14 +14,14 @@ class BagssResource extends JsonResource
      */
     public function toArray($request)
     {
-        return 
+        return
         [
             'id'=> $this->id,
             'name' => $this->name,
             'price' => $this->price,
             'size' => $this->size,
             'image' => $this->image,
-            'reviews' => $this->reviews
-        ];
+
+       ];
     }
 }

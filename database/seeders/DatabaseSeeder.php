@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $classes = [
+            PostSeeder::class
+        ];
+        $this->call($classes);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

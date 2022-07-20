@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dresses;
+use App\Models\Reviews;
+use App\Traits\ReviewTrait;
 use Illuminate\Http\Request;
+use App\Traits\ImageUploadTrait;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\DressesResources;
 use App\Http\Resources\DressesCollection;
-use Reviewable;
-
-
+use App\Traits\DetailsEntryTrait;
 
 class DressesController extends Controller
-
-
 {
-    
+    use ReviewTrait;   
+    use ImageUploadTrait;
+    use DetailsEntryTrait;
     /**
      * Display a listing of the resource.
      *
@@ -36,42 +37,25 @@ class DressesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Dresses $dress)
     {
-
-        //image upload
-       
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $new_name = rand() . '.' .$image->getClientOriginalExtension();
-            $image->move(public_path('/uploads/images'),$new_name);
-
-        }else{
-            return response()->json('Image is empty');
-        }
 
         //dresses
         $dress = new Dresses();
 
-        $dress->name = $request->input('name');
-        $dress->price = $request->input('price');
-        $dress->size = $request->input('size');
-        $dress->image = Storage::url($new_name);
-
+        $dress = $this->detailsEntry($request, $dress);
         $dress->save();
 
         return new DressesResources($dress);
     }
+   
 
-
-    //dress review
-
-    use Reviewable;
     //using the traits to add a review to the dress model
-    public function addDressReview(Request $request, Dresses $dresses)
+    public function addDressReview(Request $request, Dresses $dress)
     {
-        $review = $this->addReview($request, $dresses);
-       
+        
+      //saving the review to the dress model coming from the treit
+        $review = $this->addReview($request, $dress);
         return $review;
     }
     /**
@@ -80,9 +64,11 @@ class DressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Dresses $dress)
     {
         //
+        return new DressesResources($dress);
+
     }
 
     /**
@@ -92,9 +78,26 @@ class DressesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Dresses $dress)
     {
+
+        // $dress->update(['name' => $request->name]);
+        // return $dress;
         //
+
+       // return $dress;
+        $dress->name = $request->input('name');
+        $dress->price = $request->input('price');
+        $dress->size = $request->input('size');
+        $dress->image = Storage::url($this->imageUpload($request));
+
+        // $dress = $this->detailsEntry($request, $dress);
+         $dress->save();
+
+          return $dress;
+
+        //return new DressesResources($dress);
+
     }
 
     /**

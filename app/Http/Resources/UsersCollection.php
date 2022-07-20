@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DressesCollection extends ResourceCollection
+class UsersCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,13 +14,9 @@ class DressesCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => DressesResources::collection($this->collection),
-
-            'links' => [
-                'self' =>'link-value',
-            ]
-           
+        return 
+        [
+            'data' => UsersResource::collection($this->collection)
         ];
     }
 }
