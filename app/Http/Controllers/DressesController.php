@@ -7,11 +7,12 @@ use App\Models\Reviews;
 use App\Traits\ReviewTrait;
 use Illuminate\Http\Request;
 use App\Traits\ImageUploadTrait;
-use Illuminate\Routing\Controller;
+//use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\DressesResources;
 use App\Http\Resources\DressesCollection;
 use App\Traits\DetailsEntryTrait;
+use App\Http\Controllers\Controller;
 
 class DressesController extends Controller
 {
@@ -94,7 +95,7 @@ class DressesController extends Controller
         // $dress = $this->detailsEntry($request, $dress);
          $dress->save();
 
-          return $dress;
+          return $dress->fresh();
 
         //return new DressesResources($dress);
 

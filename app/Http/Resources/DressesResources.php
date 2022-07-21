@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Reviews;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DressesResources extends JsonResource
@@ -13,7 +14,10 @@ class DressesResources extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
+
+
     {
+        $review = new ReviewssResource(Reviews::all());
         return 
         [
             'id'=> $this->id,
@@ -21,7 +25,8 @@ class DressesResources extends JsonResource
             'price' => $this->price,
             'size' => $this->size,
             'image' => $this->image,
-            'reviews' => $this->reviews
+            'reviews' => $review
+
         ];
     }
 }

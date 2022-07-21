@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 trait ImageUploadTrait 
 {
@@ -13,6 +14,8 @@ trait ImageUploadTrait
         $this->validate($request, [
             'image' => ['required', 'image', 'max:1024', 'mimes:jpeg,png,jpg,gif']
          ]);
+
+         
         //return 'image uploaded';
        
 

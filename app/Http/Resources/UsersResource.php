@@ -18,11 +18,16 @@ class UsersResource extends JsonResource
     {
         $review = Reviews::all();
         $reviews = new ReviewssResource($review);
+        $reviewed = new ReviewableResource($this->reviewable);
+
+
         return 
         [
             'id' =>$this->id,
             'name' => $this->name,
-           // 'reviews' => $review
+            'email' => $this->email,
+           'reviews' => $this->reviews,
+           'reviewed_item' => $reviewed
 
         ];
     }

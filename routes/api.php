@@ -42,6 +42,6 @@ Route::post('reviews/models/{id}', [ReviewsController::class, 'store']);
 
 Route::post('reviews/dresses/{dress}', [DressesController::class, 'addDressReview']);
 
-Route::post('reviews/shoe/{shoes}', [ShoesController::class, 'addShoeReview']);
+Route::post('reviews/shoes/{shoe}', [ShoesController::class, 'addShoeReview']);
 
 Route::post('reviews/bag/{bag}', [BagsController::class, 'addBagsReview']);

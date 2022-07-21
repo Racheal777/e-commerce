@@ -46,9 +46,9 @@ class ShoesController extends Controller
 
     //add review
    
-    public function addShoeReview(Request $request, Shoes $shoes)
+    public function addShoeReview(Request $request, Shoes $shoe)
     {
-        $review = $this->addReview($request, $shoes);
+        $review = $this->addReview($request, $shoe);
        
         return $review;
     }
